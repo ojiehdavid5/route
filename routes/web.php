@@ -26,3 +26,21 @@ Route::get('/post/{id?}', function ($id = null) {
 Route::get('/dashboard', function () {
     return 'This is the dashboard.';
 })->name('dashboard');
+
+
+// Route with Prefix
+Route::prefix('admin')->group(function () {
+    Route::get('/users', function () {
+        return 'Admin Users';
+    });
+
+    Route::get('/settings', function () {
+        return 'Admin Settings';
+    });
+});
+Route::view('/about', 'welcome');
+
+
+// Route::fallback(function () {
+//     return 'Page not found!';
+// });
