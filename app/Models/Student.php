@@ -11,4 +11,4 @@ class Student extends Model
     // ✅ Add this to allow mass assignment
     protected $fillable = ['name', 'email', 'age'];
 }
-
+?>
