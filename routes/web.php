@@ -3,6 +3,7 @@
 // routes/web.php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('welcome'); // default
@@ -40,6 +41,8 @@ Route::prefix('admin')->group(function () {
 });
 Route::view('/about', 'welcome');
 
+
+Route::get('/students', [StudentController::class, 'index']);
 
 // Route::fallback(function () {
 //     return 'Page not found!';
