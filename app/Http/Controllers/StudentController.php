@@ -17,9 +17,9 @@ class StudentController extends Controller
     {
         // ✅ Validate form input
         $validated = $request->validate([
-            'name' => 'required|string|min:2',
-            'email' => 'required|email|unique:students,email',
-            'age' => 'required|numeric|min:10',
+'name' => 'required|string|min:2',
+    'email' => 'required|email', // temporarily removed unique
+    'age' => 'required|numeric|min:10',
         ]);
 
         // ✅ Store in database
