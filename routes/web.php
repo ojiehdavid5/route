@@ -1,54 +1,27 @@
 <?php
 
-// routes/web.php
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\StudentController;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome'); // default
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-Route::get('/greet', [PageController::class, 'greet']);
-Route::get('/user/{name}', function ($name) {
-    return "Welcome, $name!";
-});
-//Route with Parameters
-Route::get('/user/{name}', function ($name) {
-    return "Welcome, $name!";
-});
-// Route with Optional Parameter
-Route::get('/post/{id?}', function ($id = null) {
-    return "Post ID: " . ($id ?? 'Not Provided');
-});
-
-
-// Named Routes
 Route::get('/dashboard', function () {
-    return 'This is the dashboard.';
-})->name('dashboard');
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-
-// Route with Prefix
-Route::prefix('admin')->group(function () {
-    Route::get('/users', function () {
-        return 'Admin Users';
-    });
-
-    Route::get('/settings', function () {
-        return 'Admin Settings';
-    });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::view('/about', 'welcome');
 
-
-Route::get('/students', [StudentController::class, 'index']);
-
-
-Route::get('/register', [StudentController::class, 'create']);
-Route::post('/register', [StudentController::class, 'store']);
-
-
-// Route::fallback(function () {
-//     return 'Page not found!';
-// });
+require __DIR__.'/auth.php';
