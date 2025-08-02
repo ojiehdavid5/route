@@ -44,6 +44,11 @@ Route::view('/about', 'welcome');
 
 Route::get('/students', [StudentController::class, 'index']);
 
+
+Route::get('/register', [StudentController::class, 'create']);
+Route::post('/register', [StudentController::class, 'store']);
+
+
 // Route::fallback(function () {
 //     return 'Page not found!';
 // });
