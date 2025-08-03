@@ -30,6 +30,6 @@ class StudentController extends Controller
     }
     public function index(){
         $students = Student::all();
-        return view("students.index",compact("students"));
+        return Inertia::render("Students/Index",compact("students"));
     }
 }
