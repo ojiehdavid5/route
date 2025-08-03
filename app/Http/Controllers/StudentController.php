@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Inertia\Inertia;
 
 class StudentController extends Controller
 {
@@ -11,7 +12,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('students.register');
+        return Inertia::render('Students/Register');
     }
      public function store(Request $request)
     {
@@ -25,7 +26,7 @@ class StudentController extends Controller
         // ✅ Store in database
         Student::create($validated);
 
-        return redirect('/register')->with('success', 'Student registered!');
+        return redirect()->route('register')->with('success', 'Student registered!');
     }
     public function index(){
         $students = Student::all();
