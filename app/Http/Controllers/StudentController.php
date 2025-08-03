@@ -26,7 +26,7 @@ class StudentController extends Controller
         // ✅ Store in database
         Student::create($validated);
 
-        return redirect()->route('student.register')->with('success', 'Student registered!');
+        return redirect()->route('Students.register')->with('success', 'Student registered!');
     }
     public function index(){
         $students = Student::all();
