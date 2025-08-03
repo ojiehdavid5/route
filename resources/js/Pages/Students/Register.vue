@@ -13,7 +13,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post('/register', {
+    form.post('/register/student', {
         onFinish: () => form.reset('name', 'email', 'age'),
     });
 };
